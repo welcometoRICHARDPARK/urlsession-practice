@@ -9,7 +9,35 @@ import Foundation
 
 struct posts : Codable {
     var attachments : [attachmentsInformation]?
-    
+    var boardId : Int
+    var commentCount : Int
+    var content : String
+    var createdAt : String
+    var filter : filterInformation?
+    var id : Int
+    var reactions : [reactionsInformation]?
+    var spec : specInformation?
+    var title : String?
+    var updatedAt : String?
+    var views : Int?
+    var writer : writerInformation?
+}
+
+struct specInformation : Codable {
+    var contentType : String
+    var writerType : String
+}
+struct writerInformation : Codable {
+    var deleted : Bool
+    var id : Int
+    var nickname : String
+    var thumbnail : String
+}
+struct reactionsInformation : Codable {
+    var id : Int
+    var name : String
+    var size : Int
+    var reacted : Bool
 }
 
 struct attachmentsInformation : Codable {
@@ -27,4 +55,9 @@ struct attachmentsInformation : Codable {
         type = (try? values.decode(String.self, forKey: .type)) ?? ""
         url = (try? values.decode(String.self, forKey: .url)) ?? ""
     }
+}
+
+struct filterInformation : Codable {
+    var bannedWords : Int
+    var politics : Int
 }
