@@ -35,7 +35,11 @@ class ViewController: UIViewController{
             
             print("------------내가 원하는 응답 추출 -------------")
             let a = try! JSONDecoder().decode(posts.self, from: data!)
-            print(a.posts!)
+            
+//            if let result = a.posts[0] {
+//                print("result : \(result)")
+//            }
+            print(a.posts![0].writer!.nickname)
             
 //            let sample1 = try! JSONDecoder().decode(posts.self, from: responseString)
 
