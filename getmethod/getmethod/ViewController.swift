@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController{
     let accessToken = "eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MTMsInJvbGVzIjpbIlJPTEVfVVNFUiJdLCJpYXQiOjE2MTI4NTM4Njl9.4SPbd-J_3jrKgf-JS3yiXo7PIwJEqTnwTvOh0YpMPdM"
     let session = URLSession.shared
     let url = URL(string: "http://test.ground.yourssu.com:8080/v1/boards/3/posts?direction=GREATER_THAN&size=100&time=2021-02-09T13:52:00Z")!
@@ -31,7 +31,13 @@ class ViewController: UIViewController {
             guard let responseString = String(data: data!, encoding: .utf8) else {return} // guard 문을 써서 옵셔널 바인딩 구현한 부분.
             print("---------------responseString-----------------")
             print(responseString)
+            print("")
             
+            print("------------내가 원하는 응답 추출 -------------")
+            let a = try! JSONDecoder().decode(posts.self, from: data!)
+            print(a.posts!)
+            
+//            let sample1 = try! JSONDecoder().decode(posts.self, from: responseString)
 
 //            print("------------dump(request)--------------")
 //            dump(request)

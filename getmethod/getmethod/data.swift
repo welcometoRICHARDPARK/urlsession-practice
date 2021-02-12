@@ -8,6 +8,14 @@
 import Foundation
 
 struct posts : Codable {
+    var message : String?
+    var posts : [postInformation]?
+}
+
+
+
+
+struct postInformation : Codable {
     var attachments : [attachmentsInformation]?
     var boardId : Int
     var commentCount : Int
@@ -21,8 +29,9 @@ struct posts : Codable {
     var updatedAt : String?
     var views : Int?
     var writer : writerInformation?
-}
+    
 
+}
 struct specInformation : Codable {
     var contentType : String
     var writerType : String
@@ -32,12 +41,33 @@ struct writerInformation : Codable {
     var id : Int
     var nickname : String
     var thumbnail : String
+    enum CodingKeys: CodingKey {
+        case deleted, id, nickname, thumbnail
+    }
+    init(from decoder : Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        deleted = (try? values.decode(Bool.self, forKey: .deleted)) ?? true
+        id = (try? values.decode(Int.self, forKey: .id)) ?? 0
+        nickname = (try? values.decode(String.self, forKey: .nickname)) ?? ""
+        thumbnail = (try? values.decode(String.self, forKey: .thumbnail)) ?? ""
+    }
 }
 struct reactionsInformation : Codable {
     var id : Int
     var name : String
-    var size : Int
     var reacted : Bool
+    var size : Int
+    enum CodingKeys: CodingKey {
+        case id, name, reacted, size
+    }
+    init(from decoder : Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        id = (try? values.decode(Int.self, forKey: .id)) ?? 0
+        name = (try? values.decode(String.self, forKey: .name)) ?? ""
+        reacted = (try? values.decode(Bool.self, forKey: .reacted)) ?? true
+        size = (try? values.decode(Int.self, forKey: .size)) ?? 0
+        
+    }
 }
 
 struct attachmentsInformation : Codable {
