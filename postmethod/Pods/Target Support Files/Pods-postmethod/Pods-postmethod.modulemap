@@ -1,0 +1,6 @@
+framework module Pods_postmethod {
+  umbrella header "Pods-postmethod-umbrella.h"
+
+  export *
+  module * { export * }
+}
