@@ -7,23 +7,35 @@
 
 import UIKit
 
-class DataHandeling {
+class DataHandeling : CustomViewController  {
+    var contentString : String = String()
+    var contentTypeString : String = String()
+    var writerTypeString : String = String()
+    
+    
+    
     let token = "eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MTMsInJvbGVzIjpbIlJPTEVfVVNFUiJdLCJpYXQiOjE2MTI4NTM4Njl9.4SPbd-J_3jrKgf-JS3yiXo7PIwJEqTnwTvOh0YpMPdM"
-    let url = URL(string: "http://test.ground.yourssu.com:8080/v1/boards/2/post")!
+    guard let url = URL(string: "http://test.ground.yourssu.com:8080/v1/boards/2/post") else {return}
     let session = URLSession.shared
     
-    let json = [
-        "attachmentIds" : [],
-        "content" : "오늘 날씨 너무 좋다. 나랑 놀자. 코로나 너무 싫어",
-        "spec" : [
-            "contentType" : "FACEBOOK",
-            "writerType" : "ANONYMOUS"
-        ]
-    ] as [String : Any]
+    
     
     
     
     public func post() {
+        contentString = contentTextField.text!
+        contentTypeString = contentTypeTextField.text!
+        writerTypeString = writerTypeTextField.text!
+        
+        let json = [
+            "attachmentIds" : [],
+            "content" : "\(contentString)",
+            "spec" : [
+                "contentType" : "\(contentTypeString)",
+                "writerType" : "\(writerTypeString)"
+            ]
+        ] as [String : Any]
+        
         let jsonData = try! JSONSerialization.data(withJSONObject: json, options: [])
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
