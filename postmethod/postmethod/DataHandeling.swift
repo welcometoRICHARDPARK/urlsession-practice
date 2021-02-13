@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class DataHandeling {
     let token = "eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MTMsInJvbGVzIjpbIlJPTEVfVVNFUiJdLCJpYXQiOjE2MTI4NTM4Njl9.4SPbd-J_3jrKgf-JS3yiXo7PIwJEqTnwTvOh0YpMPdM"
     let url = URL(string: "http://test.ground.yourssu.com:8080/v1/boards/2/post")!
     let session = URLSession.shared
@@ -23,9 +23,7 @@ class ViewController: UIViewController {
     
     
     
-    private func post() {
-        
-        
+    public func post() {
         let jsonData = try! JSONSerialization.data(withJSONObject: json, options: [])
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
@@ -43,8 +41,5 @@ class ViewController: UIViewController {
         task.resume()
     }
     
-    public override func viewDidLoad() {
-        post()
-    }
 }
 
