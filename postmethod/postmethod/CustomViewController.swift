@@ -10,16 +10,18 @@ import UIKit
 import SnapKit
 
 class CustomViewController: UIViewController {
-    public var contentTextField : UILabel = UILabel()
-    public var contentTypeTextField : UILabel = UILabel()
-    public var writerTypeTextField : UILabel = UILabel()
+    public var contentTextField : UITextField = UITextField()
+    public var contentTypeTextField : UITextField = UITextField()
+    public var writerTypeTextField : UITextField = UITextField()
     
-    private var a = DataHandeling()
+    public var button : UIButton = UIButton()
+    
     
     private func addTextFieldView() {
         self.view.addSubview(contentTextField)
         self.view.addSubview(contentTypeTextField)
         self.view.addSubview(writerTypeTextField)
+        self.view.addSubview(button)
     }
     
     private func ViewLayout() {
@@ -47,18 +49,30 @@ class CustomViewController: UIViewController {
         }
         writerTypeTextField.backgroundColor = .black
         
-        contentTextField.text = "test해볼려고 그러는데 성공했으면 좋겠다"
-        contentTypeTextField.text = "FACEBOOK"
-        writerTypeTextField.text = "ANONYMOUS"
+        button.snp.makeConstraints { (make) in
+            make.width.height.equalTo(50)
+            make.centerX.equalToSuperview()
+            make.top.equalTo(writerTypeTextField.snp.bottom).offset(20)
+        }
+        button.backgroundColor = .green
+        button.addTarget(self, action: #selector(clickButton(_:)), for: .touchUpInside)
+    }
+    let postDataHandeled = DataHandeling()
+    @objc func clickButton(_ sender: UIButton){
+        let content = self.contentTextField.text!
+        let contentType = self.contentTypeTextField.text!
+        let writerType = self.writerTypeTextField.text!
+        
+        postDataHandeled.post(content: content, contentType: contentType, writerType: writerType)
     }
     
-    let postDataHandeled = DataHandeling()
+   
     
    
     public override func viewDidLoad() {
         addTextFieldView()
         ViewLayout()
-        postDataHandeled.post()
+       
         
     }
 }

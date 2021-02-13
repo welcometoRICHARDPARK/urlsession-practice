@@ -7,32 +7,23 @@
 
 import UIKit
 
-class DataHandeling : CustomViewController  {
+class DataHandeling  {
     var contentString : String = String()
     var contentTypeString : String = String()
     var writerTypeString : String = String()
     
-    
-    
     let token = "eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MTMsInJvbGVzIjpbIlJPTEVfVVNFUiJdLCJpYXQiOjE2MTI4NTM4Njl9.4SPbd-J_3jrKgf-JS3yiXo7PIwJEqTnwTvOh0YpMPdM"
-    guard let url = URL(string: "http://test.ground.yourssu.com:8080/v1/boards/2/post") else {return}
+    let url = URL(string: "http://test.ground.yourssu.com:8080/v1/boards/2/post")!
     let session = URLSession.shared
     
     
-    
-    
-    
-    public func post() {
-        contentString = contentTextField.text!
-        contentTypeString = contentTypeTextField.text!
-        writerTypeString = writerTypeTextField.text!
-        
+    public func post(content : String, contentType : String, writerType : String) {
         let json = [
             "attachmentIds" : [],
-            "content" : "\(contentString)",
+            "content" : "\(content)",
             "spec" : [
-                "contentType" : "\(contentTypeString)",
-                "writerType" : "\(writerTypeString)"
+                "contentType" : "\(contentType)",
+                "writerType" : "\(writerType)"
             ]
         ] as [String : Any]
         
