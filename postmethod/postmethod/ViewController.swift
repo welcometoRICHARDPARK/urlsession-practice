@@ -22,18 +22,26 @@ class ViewController: UIViewController {
     ] as [String : Any]
     
     
+    
     private func post() {
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
         
-        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         
         let jsonData = try! JSONSerialization.data(withJSONObject: json, options: [])
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
         
-        
+        let task = session.uploadTask(with: request, from: jsonData) { data, response, error in
+            guard let response = response else {return}
+            print(response)
+        }
+        task.resume()
     }
     
     public override func viewDidLoad() {
+        post()
     }
 }
 
