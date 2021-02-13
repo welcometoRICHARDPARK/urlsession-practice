@@ -34,8 +34,11 @@ class ViewController: UIViewController {
         request.setValue("application/json", forHTTPHeaderField: "Accept")
         
         let task = session.uploadTask(with: request, from: jsonData) { data, response, error in
-            guard let response = response else {return}
-            print(response)
+            
+            guard let postResponse = response as? HTTPURLResponse else {return} // optional binding
+            print(postResponse.statusCode)
+            guard let data = data, let dataString = String(data: data, encoding: .utf8) else {return} // optional binding
+            print(dataString)
         }
         task.resume()
     }
